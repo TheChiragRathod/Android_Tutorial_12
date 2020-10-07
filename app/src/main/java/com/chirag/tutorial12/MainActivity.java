@@ -29,13 +29,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         this.setTitle("Users List");
-        setVollyAPI();
+
         recyclerView=(RecyclerView)findViewById(R.id.myRecyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         setVollyAPI();
-
-
     }
 
 
@@ -47,7 +45,10 @@ public class MainActivity extends AppCompatActivity {
         //Volley Library Code Start Here........
         RequestQueue requestQueue= Volley.newRequestQueue(this);
 
-        JsonArrayRequest jsonArrayRequest=new JsonArrayRequest(Request.Method.GET, MyUtil.USER_URL, null, new Response.Listener<JSONArray>() {
+        JsonArrayRequest jsonArrayRequest=new JsonArrayRequest(
+                Request.Method.GET,
+                MyUtil.USER_URL,
+                null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 try {
@@ -55,15 +56,16 @@ public class MainActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+
+                //RecyclerView Adapter Class...
                 MyRecyclerViewAdapter adapter=new MyRecyclerViewAdapter(MainActivity.this,usersJSONArray);
                 recyclerView.setAdapter(adapter);
 
+
                     }
-                });
+                },
 
-
-            }
-        }, new Response.ErrorListener() {
+                new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(MainActivity.this, "Somthing went Wrong...", Toast.LENGTH_SHORT).show();

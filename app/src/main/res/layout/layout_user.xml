@@ -26,6 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:autoLink="all"
             android:textColor="@color/colorText"
             android:textSize="14sp" />
 
@@ -34,6 +35,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:autoLink="all"
+            android:textAlignment="textEnd"
             android:textColor="@color/colorText"
             android:textSize="14sp" />
     </LinearLayout>
