@@ -1,6 +1,7 @@
 package com.chirag.tutorial12;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -21,6 +22,7 @@ import org.json.JSONArray;
 public class MainActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
+
     JSONArray usersJSONArray;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         this.setTitle("Users List");
         setVollyAPI();
+        recyclerView=(RecyclerView)findViewById(R.id.myRecyclerView);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        setVollyAPI();
+
 
     }
 
@@ -48,7 +55,11 @@ public class MainActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+                MyRecyclerViewAdapter adapter=new MyRecyclerViewAdapter(MainActivity.this,usersJSONArray);
+                recyclerView.setAdapter(adapter);
 
+                    }
+                });
 
 
             }
@@ -59,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        requestQueue.add(jsonArrayRequest);
+        //Volley Library Code Finished Here........
 
     }
 }

@@ -38,9 +38,9 @@ public class UserData extends AppCompatActivity {
         Intent intent=getIntent();
 
         //TextView Initialization part start here...
-        textViewName = findViewById(R.id.txtName);
+        textViewName = findViewById(R.id.lyt_txtName);
         textViewUsername=findViewById(R.id.txtUsername);
-        textViewEmail = findViewById(R.id.txtEmail);
+        textViewEmail = findViewById(R.id.lyt_txtEmail);
         textViewStreet=findViewById(R.id.txtStreet);
         textViewSuite = findViewById(R.id.txtSuite);
         textViewCity=findViewById(R.id.txtCity);
