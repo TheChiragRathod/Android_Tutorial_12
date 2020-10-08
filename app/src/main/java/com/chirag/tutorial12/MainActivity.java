@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -24,11 +25,13 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
 
     JSONArray usersJSONArray;
+    ProgressDialog dialog=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         this.setTitle("Users List");
+        dialog = new ProgressDialog(this);
 
         recyclerView=(RecyclerView)findViewById(R.id.myRecyclerView);
         recyclerView.setHasFixedSize(true);
@@ -60,7 +63,8 @@ public class MainActivity extends AppCompatActivity {
                 //RecyclerView Adapter Class...
                 MyRecyclerViewAdapter adapter=new MyRecyclerViewAdapter(MainActivity.this,usersJSONArray);
                 recyclerView.setAdapter(adapter);
-
+                if(dialog.isShowing())
+                    dialog.dismiss();
 
                     }
                 },
@@ -71,7 +75,8 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Somthing went Wrong...", Toast.LENGTH_SHORT).show();
             }
         });
-
+        dialog.setMessage("Fetching Data");
+        dialog.show();
         requestQueue.add(jsonArrayRequest);
         //Volley Library Code Finished Here........
 
