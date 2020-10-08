@@ -9,6 +9,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.AdapterView;
 import android.widget.Toast;
 
@@ -26,13 +28,12 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
 
     JSONArray usersJSONArray;
-    ProgressDialog dialog=null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         this.setTitle("Users List");
-        dialog = new ProgressDialog(this);
 
         recyclerView=(RecyclerView)findViewById(R.id.myRecyclerView);
         recyclerView.setHasFixedSize(true);
@@ -44,6 +45,11 @@ public class MainActivity extends AppCompatActivity {
         DividerItemDecoration dividerItemDecoration=new DividerItemDecoration(recyclerView.getContext(),LinearLayoutManager.VERTICAL);
         recyclerView.addItemDecoration(dividerItemDecoration);
 
+
+        //Applying Animation In RecyclerView.
+        int resId = R.anim.layout_animation_fall_down;
+        LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(this, resId);
+        recyclerView.setLayoutAnimation(animation);
 
 
         setVollyAPI();
@@ -73,8 +79,7 @@ public class MainActivity extends AppCompatActivity {
                 //RecyclerView Adapter Class...
                 MyRecyclerViewAdapter adapter=new MyRecyclerViewAdapter(MainActivity.this,usersJSONArray);
                 recyclerView.setAdapter(adapter);
-                if(dialog.isShowing())
-                    dialog.dismiss();
+
 
                     }
                 },
@@ -85,8 +90,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Somthing went Wrong...", Toast.LENGTH_SHORT).show();
             }
         });
-        dialog.setMessage("Fetching Data");
-        dialog.show();
+
         requestQueue.add(jsonArrayRequest);
         //Volley Library Code Finished Here........
 
