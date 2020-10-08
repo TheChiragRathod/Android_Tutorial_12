@@ -1,6 +1,7 @@
 package com.chirag.tutorial12;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -36,6 +37,15 @@ public class MainActivity extends AppCompatActivity {
         recyclerView=(RecyclerView)findViewById(R.id.myRecyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+
+
+        //Add Divider
+        DividerItemDecoration dividerItemDecoration=new DividerItemDecoration(recyclerView.getContext(),LinearLayoutManager.VERTICAL);
+        recyclerView.addItemDecoration(dividerItemDecoration);
+
+
+
         setVollyAPI();
     }
 
